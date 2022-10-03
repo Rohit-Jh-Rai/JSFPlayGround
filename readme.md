@@ -1,4 +1,4 @@
-# This is a JEE7 application to test JSF and Richfaces, CDI and other JEE7 related subjects
+# JEE7 application to test JSF and Richfaces, CDI and other JEE7 related subjects
 
 ## Needed
 1. JDK 8
