@@ -1,4 +1,4 @@
-package com.rjhrai;
+package com.rjhrai.backing;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -8,6 +8,7 @@ import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ActionEvent;
 import javax.faces.validator.ValidatorException;
 import javax.inject.Named;
 import java.io.Serializable;
@@ -28,6 +29,8 @@ public class EmployeeBean implements Serializable {
     private String designation;
     private String department;
     private boolean employeeType;
+    private String status;
+    private String password;
     public String getEmpName() {
         return empName;
     }
@@ -48,6 +51,12 @@ public class EmployeeBean implements Serializable {
     }
     public String getAddress() {
         return address;
+    }
+    public String getPassword() {
+        return password;
+    }
+    public String getStatus() {
+        return status;
     }
     public void setAddress(String address) {
         this.address = address;
@@ -88,6 +97,12 @@ public class EmployeeBean implements Serializable {
     public void setEmployeeType(boolean employeeType) {
         this.employeeType = employeeType;
     }
+    public void setPassword(String password) {
+        this.password = password;
+    }
+    public void setStatus(String status) {
+        this.status = status;
+    }
 
     public EmployeeBean() {
     }
@@ -104,6 +119,16 @@ public class EmployeeBean implements Serializable {
         if (-1 == emailStr.indexOf("@")) {
             FacesMessage message = new FacesMessage("Email Address is Valid");
             throw new ValidatorException(message);
+        }
+    }
+
+    public void login(ActionEvent evt) {
+        if (empName.equals(password)) {
+            log.info("Login successful");
+            status = "Login successful";
+        } else {
+            status = "Login failed";
+            log.info("Login failed");
         }
     }
 

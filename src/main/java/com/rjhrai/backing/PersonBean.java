@@ -1,8 +1,10 @@
-package com.rjhrai;/*
+package com.rjhrai.backing;/*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
 
+
+import com.rjhrai.model.Person;
 
 import java.util.Arrays;
 import javax.annotation.PostConstruct;

@@ -1,4 +1,4 @@
-package com.rjhrai;
+package com.rjhrai.model;
 
 /*
  * To change this template, choose Tools | Templates

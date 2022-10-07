@@ -2,15 +2,40 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:fn="http://java.sun.com/jsp/jstl/functions">
 <h:head>
    <title>Facelet Title</title>
+   <h:outputStylesheet>
+      .errLoginMessage {
+         font-weight: bold;
+         word-break: break-all;
+         color: red;
+      }
+      .sucLoginMessage {
+         font-weight: bold;
+         word-break: break-all;
+         color: green;
+      }
+   </h:outputStylesheet>
 </h:head>
 <h:body>
    <h1>JSF Components</h1>
 
-   <h:form prependId="false">
+
+   <h:form prependId="false" id="form1">
       <p/><b>Terug naar index</b>: <h:commandLink value="Terug" immediate="true" action="/index"/><br/>
+      <p/><b>commandButton with Ajax</b><br/>
+      Name: <h:inputText value="#{employeeBean.empName}" id="name2"/><br/>
+      Password: <h:inputText value="#{employeeBean.password}" id="password2"/><br/>
+      <h:commandButton value="Login" type="button" actionListener="#{employeeBean.login}">
+         <f:ajax execute="name2 password2" render=":status2"/>
+      </h:commandButton>&nbsp;
+      <h:outputText value="#{employeeBean.status}" id="status2" styleClass="#{fn:contains(employeeBean.status, 'failed') ? 'errLoginMessage' : 'sucLoginMessage'}"/>
+   </h:form>
+
+
+   <h:form prependId="false">
 
       <p/><b>commandButton</b><br/>
       <h:commandButton value="Next" action="/jsf/jsfnext"/>
