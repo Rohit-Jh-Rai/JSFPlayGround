@@ -22,7 +22,7 @@ public class MessageDao {
 
     @PostConstruct
     public void init() {
-        log.info("MessageDao created");
+        log.info("****************** MessageDao created");
     }
 
     public Message create(Message message) {
@@ -44,5 +44,9 @@ public class MessageDao {
                 .createQuery("FROM com.rjhrai.model.Message m", Message.class)
                 .getResultList();
          return list;
+    }
+
+    public void deleteAll() {
+        em.createQuery("DELETE FROM Message").executeUpdate();
     }
 }

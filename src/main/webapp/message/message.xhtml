@@ -10,6 +10,7 @@
 
 <h:body>
    <h1>#{lbl.message_header}</h1>
+
    <h:form>
       <h:outputLabel for="input" value="#{lbl.message_input}" />
       <h:inputText id="input" value="#{messageBean.message.text}" validatorMessage="Please, enter a message!" >
@@ -18,22 +19,48 @@
       </h:inputText>
       <h:message id="input_m" for="input" style="color: red"/>
       <h:commandButton value="Submit" actionListener="#{messageBean.submit}">
-<!--         <f:ajax execute="@form" render="input input_m :table" />-->
+         <f:ajax execute="@form" render="@form :dataform" />
       </h:commandButton>
-      <br/>
-      <h:dataTable id="table" value="#{messageBean.messages}" var="message" rendered="#{!empty messageBean.messages}" border="1">
-         <h:column>
-            <f:facet name="header">#{lbl.message_id}</f:facet>
-            <h:outputText value="#{message.id}" />
-         </h:column>
-         <h:column>
-            <f:facet name="header">#{lbl.message_text}</f:facet>
-            <h:outputText value="#{message.text}" />
-         </h:column>
-      </h:dataTable>
-      <h:commandButton value="Reset list" immediate="true" rendered="#{!empty messageBean.messages}" actionListener="#{messageBean.doReset}" />   <br/>
    </h:form>
-   <h:outputText rendered="#{empty messageBean.messages}" value="No messages, please enter some memos!" /> <br/>
+
+   <br/>
+
+   <h:form id="dataform">
+      <h:panelGroup>
+         <h:dataTable id="table" value="#{messageBean.messages}" var="message" rendered="#{!empty messageBean.messages}" border="1">
+            <f:facet name="header" >Messages</f:facet>
+            <h:column>
+               <f:facet name="header">#{lbl.message_id}</f:facet>
+               <h:outputText value="#{message.id}" />
+            </h:column>
+            <h:column>
+               <f:facet name="header">#{lbl.message_text}</f:facet>
+               <h:outputText value="#{message.text}" />
+            </h:column>
+            <h:column>
+               <f:facet name="header">h:button with GET</f:facet>
+               <!-- commandbutton does a POST: f:viewparam and f:viewaction in messageDetail will not work-->
+               <h:button value="Edit" outcome="#{messageBean.doEdit(message,false)}" />
+            </h:column>
+            <h:column>
+               <f:facet name="header">h:commandButton with POST</f:facet>
+               <!-- commandbutton does a POST: f:viewparam and f:viewaction in messageDetail will not work unless you do a redirect-->
+               <h:commandButton value="Edit" action="#{messageBean.doEdit(message,true)}" />
+            </h:column>
+            <h:column>
+               <h:link value="Edit" outcome="messageDetail" >
+                  <f:param name="id" value="#{message.id}"/>
+               </h:link>
+            </h:column>
+            <f:facet name="footer">Number: #{messageBean.messages.size()}</f:facet>
+         </h:dataTable>
+      </h:panelGroup>
+      <h:commandButton value="Reset list" immediate="true" rendered="#{!empty messageBean.messages}" actionListener="#{messageBean.doReset}" />   <br/>
+      <h:panelGroup >
+         <h:outputText id="result" rendered="#{empty messageBean.messages}" value="No messages, please enter one!" /> <br/>
+      </h:panelGroup>
+   </h:form><br/>
+
    <h:link value = "#{lbl.message_terug}" outcome = "/index" />
 </h:body>
 </html>

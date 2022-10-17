@@ -19,7 +19,7 @@ public class MessageServiceImpl implements MessageService {
 
     @PostConstruct
     public void init() {
-        log.info("MessageServiceImpl created");
+        log.info("****************** MessageServiceImpl created");
     }
 
     @Override
@@ -42,4 +42,11 @@ public class MessageServiceImpl implements MessageService {
         List<Message> list =  messageDao.list();
         return list;
     }
+
+    @Override
+    public void deleteAll() {
+        messageDao.deleteAll();
+    }
+
+
 }
