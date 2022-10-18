@@ -15,7 +15,7 @@
          <tr>
             <td>Employee Name:</td>
             <td>
-               <h:inputText label="Employee Name" id="ename" value="#{employeeBean.empName}" required="true"/>
+               <h:inputText label="Employee Name" id="ename" value="#{employeeBean.empName}" required="true" converter="employeeNameConverter"/>
                <h:message for="ename" style="color: red"/>
             </td>
          </tr>
@@ -35,7 +35,7 @@
             <td>Date of Birth:</td>
             <td>
                <h:inputText label="Date of Birth" id="dob" value="#{employeeBean.dob}" required="true">
-                  <f:convertDateTime pattern="MM-dd-yy" />
+                  <f:convertDateTime pattern="MM/dd/yy"/>
                </h:inputText> (mm-dd-yy)
                <h:message for="dob" style="color: red"/>
             </td>

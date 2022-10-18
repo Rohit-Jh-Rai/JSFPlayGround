@@ -12,27 +12,46 @@ import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
 import java.io.Serializable;
 
-@Named("messageDetailBean")
+@Named("messageDetailBeanJDNI")
 @ViewScoped
-public class MessageDetailBean implements Serializable {
+public class MessageDetailUsingJNDIBean implements Serializable {
 
     private static final long serialVersionUID = -6239437588285327644L;
-    private static final Logger log = LoggerFactory.getLogger(MessageDetailBean.class);
+    private static final Logger log = LoggerFactory.getLogger(MessageDetailUsingJNDIBean.class);
 
     private Message message;
-    @Inject
+
     private MessageService messageService;
 
-    public MessageDetailBean()  {
-        log.info("************************ MessageDetailBean constructor" );
+    public MessageDetailUsingJNDIBean() {
+        log.info("************************ MessageDetailUsingJNDIBean constructor" );
+        messageService = getMessageServiceFromJNDI(MessageService.class);
         message = new Message();
+    }
+
+    private MessageService getMessageServiceFromJNDI(Class clazz)  {
+        log.info("Looking up {} from JDNI...", clazz.getCanonicalName() );
+        String jdniName="java:global/JSFRichEx1/MessageServiceImpl!com.rjhrai.service.MessageService";
+        Object lookup = lookup(clazz, jdniName);
+        return (MessageService) lookup;
+    }
+
+    private static <T> T lookup(Class<T> ejbClass, String jndiName) {
+        try {
+            // Do not use ejbClass.cast(). It will fail on local/remote interfaces.
+            return (T) new InitialContext().lookup(jndiName);
+        } catch (NamingException e) {
+            throw new IllegalArgumentException(String.format("Cannot find EJB class %s in JNDI %s", ejbClass, jndiName), e);
+        }
     }
 
     @PostConstruct
     public void init() {
-        log.info("************************ MessageDetailBean postconstruct" );
+        log.info("************************ MessageDetailUsingJNDIBean postconstruct" );
     }
 
     public void initMessage() {
@@ -50,7 +69,7 @@ public class MessageDetailBean implements Serializable {
 
     @PreDestroy
     public void destroy() {
-        log.info("************************* MessageDetailBean predestroy" );
+        log.info("************************* MessageDetailUsingJNDIBean predestroy" );
     }
 
     public String save() {

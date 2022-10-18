@@ -4,8 +4,18 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<!-- You can use :
+   CDI: messageDetailBean
+   JDNI: messageDetailBeanJDNI
+-->
+
    <f:metadata>
-      <f:viewParam name="id" value="#{messageDetailBean.message}" converter="#{messageConverter}" required="true" converterMessage="Bad request. Unknown message."
+      <f:viewParam name="id"
+                   value="#{messageDetailBeanJDNI.message}"
+                   converter="#{messageConverter}"
+                   required="true"
+                   converterMessage="Bad request. Unknown message."
                    requiredMessage="Bad request. Please use a link from within the system."/>
       <!-- Another way: -->
 <!--      <f:viewParam name="id" value="#{messageDetailBean.message.id}" required="true" />-->
@@ -24,14 +34,14 @@
       <h:form>
          <h:panelGrid columns="2">
             <h:outputLabel for="msgId" value="ID" />
-            <h:outputText id="msgId" value="#{messageDetailBean.message.id}"/>
+            <h:outputText id="msgId" value="#{messageDetailBeanJDNI.message.id}"/>
             <h:outputLabel for="input" value="#{lbl.message_input}" />
-            <h:inputText id="input" value="#{messageDetailBean.message.text}" validatorMessage="Please, enter a message!" >
+            <h:inputText id="input" value="#{messageDetailBeanJDNI.message.text}" validatorMessage="Please, enter a message!" >
                <f:passThroughAttribute name="placeholder" value="your message here" />
                <f:validateRequired />
             </h:inputText>
             <h:message id="input_m" for="input" style="color: red"/>
-            <h:commandButton value="Save" action="#{messageDetailBean.save()}">
+            <h:commandButton value="Save" action="#{messageDetailBeanJDNI.save()}">
             </h:commandButton>
          </h:panelGrid>
       </h:form>

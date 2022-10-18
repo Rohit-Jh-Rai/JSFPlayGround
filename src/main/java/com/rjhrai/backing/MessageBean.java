@@ -30,7 +30,6 @@ public class MessageBean implements Serializable {
 
     @Inject
     private MessageService messageService;
-    private ResourceBundle bundle;
 
     public MessageBean() {
         log.info("************************ MessageBean constructor" );
@@ -63,6 +62,7 @@ public class MessageBean implements Serializable {
 
     public String doEdit(Message message, boolean doRedirect) {
         log.info("MessageBean edit: " + message.getId() );
+         // commandbutton does a POST: f:viewparam and f:viewaction in messageDetail will not work unless you do a redirect:
         return "/message/messageDetail?"+ (doRedirect?"faces-redirect=true&":"") + "id="+message.getId();
     }
 
