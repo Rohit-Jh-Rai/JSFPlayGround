@@ -9,6 +9,7 @@ public interface MessageService {
     public void update(Message message);
     public Message findById(Long id);
     public List<Message> listAll();
+    public void delete(Long id);
     public void deleteAll();
 
 }

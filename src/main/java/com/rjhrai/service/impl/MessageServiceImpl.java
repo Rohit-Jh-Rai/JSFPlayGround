@@ -42,7 +42,10 @@ public class MessageServiceImpl implements MessageService {
         List<Message> list =  messageDao.list();
         return list;
     }
-
+    @Override
+    public void delete(Long id) {
+        messageDao.delete(id);
+    }
     @Override
     public void deleteAll() {
         messageDao.deleteAll();

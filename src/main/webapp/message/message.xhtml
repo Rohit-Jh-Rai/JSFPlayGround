@@ -13,14 +13,14 @@
 
    <h:form>
       <h:outputLabel for="input" value="#{lbl.message_input}" />
-      <h:inputText id="input" value="#{messageBean.message.text}" validatorMessage="Please, enter a message!" >
+      <h:inputText id="input" value="#{messageBean.message.text}" validatorMessage="Please, enter a good message!" >
          <f:passThroughAttribute name="placeholder" value="your message here" />
          <f:validateRequired />
       </h:inputText>
-      <h:message id="input_m" for="input" style="color: red"/>
       <h:commandButton value="Submit" actionListener="#{messageBean.submit}">
          <f:ajax execute="@form" render="@form :dataform" />
       </h:commandButton>
+      <h:message id="input_m" for="input" style="color: red"/>
    </h:form>
 
    <br/>
@@ -52,7 +52,7 @@
                   <f:param name="id" value="#{message.id}"/>
                </h:link>
             </h:column>
-            <f:facet name="footer">Number: #{messageBean.messages.size()}</f:facet>
+            <f:facet name="footer">Number of messages: #{messageBean.messages.size()}</f:facet>
          </h:dataTable>
       </h:panelGroup>
       <h:commandButton value="Reset list" immediate="true" rendered="#{!empty messageBean.messages}" actionListener="#{messageBean.doReset}" />   <br/>

@@ -46,7 +46,14 @@ public class MessageDao {
          return list;
     }
 
+    public void delete(Long id) {
+        em.createQuery("DELETE FROM Message WHERE id = :myId")
+        .setParameter("myId", id)
+        .executeUpdate();
+    }
+
     public void deleteAll() {
-        em.createQuery("DELETE FROM Message").executeUpdate();
+        em.createQuery("DELETE FROM Message")
+        .executeUpdate();
     }
 }

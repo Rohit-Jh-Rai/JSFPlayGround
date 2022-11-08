@@ -38,10 +38,10 @@
    <h:form prependId="false">
 
       <p/><b>commandButton</b><br/>
-      <h:commandButton value="Next" action="/jsf/jsfnext"/>
+      <h:commandButton value="Next" action="jsfnext"/>
 
       <p/><b>commandLink</b><br/>
-      <h:commandLink value="myLink" action="/jsf/jsfnext"/>
+      <h:commandLink value="myLink" action="jsfnext"/>
 
       <p/><b>dataTable</b><br/>
       <h:dataTable value="#{personBean.list}" var="p">
@@ -56,7 +56,7 @@
       </h:dataTable>
 
       <p/><b>graphicImage</b><br/>
-      <h:graphicImage value="/images/glassfish.png"/>
+      <h:graphicImage value="/images/ok.png"/>
 
       <p/><b>inputHidden</b><br/>
       <h:inputHidden value="myHiddenValue"/>
@@ -139,7 +139,7 @@
       </h:selectManyCheckbox>
 
       <p/><b>selectManyListbox</b><br/>
-      <h:selectManyListbox value="#{personBean.selectBooleanCheckbox}" size="2">
+      <h:selectManyListbox value="#{personBean.selectManyCheckbox}" size="10">
          <f:selectItem itemValue="red" itemLabel="Red"/>
          <f:selectItem itemValue="green" itemLabel="Green"/>
          <f:selectItem itemValue="blue" itemLabel="Blue"/>
@@ -148,13 +148,15 @@
       </h:selectManyListbox>
 
       <p/><b>selectManyMenu</b><br/>
-      <h:selectManyMenu value="#{personBean.selectBooleanCheckbox}">
+      <h:selectManyMenu value="#{personBean.selectManyCheckbox}">
          <f:selectItem itemValue="red" itemLabel="Red"/>
          <f:selectItem itemValue="green" itemLabel="Green"/>
          <f:selectItem itemValue="blue" itemLabel="Blue"/>
          <f:selectItem itemValue="yellow" itemLabel="yellow"/>
          <f:selectItem itemValue="orange" itemLabel="Orange"/>
       </h:selectManyMenu>
+
+
    </h:form>
 </h:body>
 </html>
